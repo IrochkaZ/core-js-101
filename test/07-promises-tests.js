@@ -47,7 +47,7 @@ describe('07-promises-tasks', () => {
         const errorMessage = error instanceof Error ? error : defaultRejectionMessage;
         messages.push(errorMessage.message);
       })
-      // answers
+    // answers
       .then(() => Promise.all(answers))
       .then(() => {
         assert(
@@ -81,8 +81,8 @@ describe('07-promises-tasks', () => {
     const arrayForPromise = new Array(1000).fill(0).map((_, idx) => idx);
     const result1 = tasks.processAllPromises(arrayForPromise.map((item) => Promise.resolve(item)));
     const result2 = tasks.processAllPromises(arrayForPromise.map((item) => (item % 2
-      ? Promise.resolve(item)
-      : Promise.reject(Error(`Predictable Rejection ${item}`)))));
+            ? Promise.resolve(item)
+            : Promise.reject(Error(`Predictable Rejection ${item}`)))));
 
     const messages = [];
     const defaultRejectionMessage = 'Incorrect data!';
@@ -104,7 +104,7 @@ describe('07-promises-tasks', () => {
     }).catch((error) => {
       const errorMessage = error instanceof Error ? error : defaultRejectionMessage;
       messages.push(errorMessage.message);
-    // result 2
+      // result 2
     }).then(() => result2).catch((error) => {
       const errorMessage = error instanceof Error ? error : defaultRejectionMessage;
 
@@ -201,8 +201,8 @@ describe('07-promises-tasks', () => {
         reject(Error('there are should not be any Unhandled Rejections!'));
       });
       result2 = tasks.chainPromises(arrayForPromise.map((item) => (item % 2
-        ? Promise.resolve(item)
-        : Promise.reject(Error(`Predictable Rejection ${item}`)))),
+                    ? Promise.resolve(item)
+                    : Promise.reject(Error(`Predictable Rejection ${item}`)))),
       (a, b) => a - b);
       result2.then(() => resolve());
     });
@@ -210,10 +210,8 @@ describe('07-promises-tasks', () => {
     const messages = [];
     const defaultRejectionMessage = 'Incorrect data!';
 
-    assert(
-      !/(Promise.all\s*\({0,})/.test(tasks.chainPromises.toString()),
-      'Function "chainPromises" should not use Promise.all method!',
-    );
+    assert(!/(Promise.all\s*\({0,})/.test(tasks.chainPromises.toString()),
+      'Function "chainPromises" should not use Promise.all method!',);
 
     assert(
       result1 instanceof Promise && result2 instanceof Promise,
