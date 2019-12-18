@@ -282,8 +282,7 @@ function getSecondItems(arr) {
 function propagateItemsByPositionIndex(arr) {
   return arr.reduce((previousValue, currentValue, index) => previousValue
     .concat(Array(index + 1)
-      // eslint-disable-next-line no-array-constructor
-      .fill(currentValue)), new Array());
+      .fill(currentValue)), []);
 }
 
 
@@ -335,8 +334,10 @@ function getPositivesCount(arr) {
  *   [ 'nine','eight','nine','eight'] => [ 'eight','eight','nine','nine']
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const number = ['zero', 'one', 'two', 'three', 'four', 'five', 'six',
+    'seven', 'eight', 'nine'];
+  return arr.sort((a, b) => number.indexOf(a) - number.indexOf(b));
 }
 
 /**
