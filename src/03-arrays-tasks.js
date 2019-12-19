@@ -491,8 +491,9 @@ function getIdentityMatrix(n) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  if (start === end) return [start];
+  return [start, ...getIntervalArray(start + 1, end)];
 }
 
 /**
@@ -506,8 +507,9 @@ function getIntervalArray(/* start, end */) {
  *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
-function distinct(/* arr */) {
-  throw new Error('Not implemented');
+function distinct(arr) {
+  const obj = new Set(arr);
+  return [...obj];
 }
 
 /**
@@ -598,8 +600,25 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+
+function swapHeadAndTail(arr) {
+  if (arr.length % 2) {
+    const unchangeIndex = Math.floor((arr.length / 2));
+    const leftSide = arr.slice(unchangeIndex + 1);
+    const rightSide = arr.slice(0, unchangeIndex);
+    return [...leftSide, arr[unchangeIndex], ...rightSide];
+  } if (arr.length % 2 === 0) {
+    const unchangeIndex = arr.length / 2;
+    const leftSide = arr.slice(unchangeIndex);
+    const rightSide = arr.slice(0, unchangeIndex);
+    return [...leftSide, ...rightSide];
+  }
+  if (arr.length === 2) {
+    const arr2 = [];
+    arr2.push(arr[1]);
+    arr2.push(arr[0]);
+    return arr2;
+  }
 }
 
 
