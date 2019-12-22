@@ -1,3 +1,7 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-use-before-define */
+/* eslint-disable radix */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-const-assign */
 /* *************************************************************************************************
@@ -172,8 +176,23 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  const arr = str.split('');
+  let result = '';
+  let ctr = 0;
+  for (let x = 0; x < arr.length; x++) {
+    ctr = 0;
+    for (let y = 0; y < arr.length; y++) {
+      if (arr[x] === arr[y]) {
+        ctr += 1;
+      }
+    }
+    if (ctr < 2) {
+      result = arr[x];
+      break;
+    }
+  }
+  return (result.length === 0) ? null : result;
 }
 
 
@@ -216,8 +235,8 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
 
 
@@ -233,8 +252,9 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  const str = num.toString();
+  return parseInt(str.split('').reverse().join(''), 10);
 }
 
 
@@ -258,8 +278,16 @@ function reverseInteger(/* num */) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  let sum = 0;
+  const num = ccn.toString();
+  for (let i = 1; i <= num.length; i += 1) {
+    let x = Number(num[num.length - i]);
+    if (i % 2 === 0) { x *= 2; }
+    if (x > 9) { x -= 9; }
+    sum += x;
+  }
+  return sum % 10 === 0;
 }
 
 /**
@@ -276,8 +304,10 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  if (num < 10) return num;
+  // eslint-disable-next-line no-mixed-operators
+  return (num - 1) % 9 + 1;
 }
 
 
@@ -302,8 +332,22 @@ function getDigitalRoot(/* num */) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const tracer = [];
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === '(' || str[i] === '{' || str[i] === '[' || str[i] === '<') {
+      tracer.push(str[i]);
+    } else {
+      if (tracer.length === 0) return false;
+      const lastValue = tracer[tracer.length - 1];
+      if ((str[i] === ']' && lastValue === '[') || (str[i] === '}' && lastValue === '{') || (str[i] === ')' && lastValue === '(') || (str[i] === '>' && lastValue === '<')) {
+        tracer.pop();
+      } else {
+        break;
+      }
+    }
+  }
+  return tracer.length === 0;
 }
 
 
@@ -344,8 +388,17 @@ function toNaryString(num, n) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  let path = pathes[0];
+  for (let i = 1; i < pathes.length; i++) {
+    for (let j = 0; j < pathes[i].length; j++) {
+      if (path[j] !== pathes[i][j]) {
+        path = path.slice(0, pathes[i].lastIndexOf('/', j) + 1);
+        break;
+      }
+    }
+  }
+  return path;
 }
 
 
